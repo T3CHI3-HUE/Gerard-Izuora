@@ -27,6 +27,7 @@ const work = [
   { title: "Closer Pictures", description: "Creative Economy Practice.", tags: ["Video"], videoSrc: "./images/f6ee242e-5c82-455e-bd9f-93f4693a048d.MP4", thumbSrc: DEFAULT_THUMB },
   { title: "Social Event", description: "Social Event.", tags: ["Video"], videoSrc: "./images/f78f538f-c254-4d60-b28d-ea945a64d5b6.MP4", thumbSrc: DEFAULT_THUMB },
   { title: "Masha Music Academy", description: "2025 Recital.", tags: ["Video"], videoSrc: "./images/faa815e3-5a9b-47cf-8cd0-dfac14e297de.MP4", thumbSrc: DEFAULT_THUMB }
+  { title: "BRAS MARINE", description: "Promotional video.", tags: ["Video"], videoSrc: "./images/61e764a8-241d-43b1-baad-b1df0eec2d22.MP4", thumbSrc: DEFAULT_THUMB }
 ];
 
 
