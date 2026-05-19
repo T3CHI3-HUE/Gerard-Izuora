@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Videographer Portfolio</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand" aria-label="Brand">
+          <span class="brand-mark" aria-hidden="true">🎥</span>
+          <div>
+            <div class="brand-name">Gerard Izuora</div>
+            <div class="brand-tagline">Videographer • Editor • Storyteller</div>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="#work">Work</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="header-cta">
+          <a class="btn" href="#contact">Book a shoot</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="container">
+      <section class="hero hero--portrait" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title">Cinematic video for brands, events, and creators.</h1>
+          <p class="lead">
+            I craft clean, high-impact edits with an eye for pacing, sound, and color.
+            Browse selected projects below.
+          </p>
+
+          <div class="portrait-pill" aria-hidden="true">
+            <span class="portrait-pill-name">Gerard Izuora</span>
+            <span class="portrait-pill-sep">•</span>
+            <span class="portrait-pill-role">Videographer/Cinematographer</span>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#work">View selected work</a>
+            <a class="btn" href="#contact">Get in touch</a>
+          </div>
+
+          <ul class="hero-meta" aria-label="Highlights">
+            <li>
+              <span class="meta-icon" aria-hidden="true">⚡</span>
+              <span><strong>Fast turnaround</strong> for edits</span>
+            </li>
+            <li>
+              <span class="meta-icon" aria-hidden="true">🎛️</span>
+              <span><strong>Sound + color</strong> tuned</span>
+            </li>
+            <li>
+              <span class="meta-icon" aria-hidden="true">📍</span>
+              <span><strong>Available</strong> worldwide</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="hero-media hero-media--portrait" aria-label="Portrait">
+          <img
+            class="portrait-img"
+            src="./images/image1.jpeg"
+            alt="Gerard Izuora"
+            loading="eager"
+          />
+        </div>
+      </section>
+
+      <section id="work" class="section" aria-labelledby="work-title">
+        <div class="section-head">
+          <h2 id="work-title">Selected work</h2>
+          <p class="section-subtitle">Click a project to play.</p>
+
+        </div>
+
+        <div class="work-grid" id="workGrid"></div>
+
+        <div class="work-grid-actions">
+          <button class="btn btn-small" type="button" id="viewMoreBtn">View more</button>
+          <button class="btn btn-small btn-ghost" type="button" id="hideBtn" hidden>Hide</button>
+        </div>
+
+
+        <div id="modal" class="video-modal" aria-hidden="true" hidden>
+
+          <button type="button" class="video-modal-close" id="videoModalClose" aria-label="Close video">✕</button>
+          <div class="video-modal-inner">
+            <video id="modalVideo" class="video" controls preload="metadata" playsinline></video>
+          </div>
+        </div>
+
+
+
+
+        <template id="workCardTemplate">
+          <article class="work-card" tabindex="0" aria-label="Project">
+            <button class="work-media" type="button" data-video>
+              <img class="work-thumb" alt="" data-thumb />
+              <span class="play-badge" aria-hidden="true">▶</span>
+            </button>
+            <div class="work-body">
+              <h3 class="work-title" data-title></h3>
+              <p class="work-desc" data-desc></p>
+              <div class="work-tags" aria-label="Tags">
+                <span class="tag" data-tag></span>
+              </div>
+              <div class="work-actions">
+                <a class="btn btn-small btn-ghost" href="#" target="_blank" rel="noopener" data-watch-link>Watch</a>
+              </div>
+            </div>
+          </article>
+        </template>
+
+
+      </section>
+
+      <section id="contact" class="section contact" aria-labelledby="contact-title">
+        <div class="section-head">
+          <h2 id="contact-title">Contact</h2>
+          <p class="section-subtitle">Social handles + direct contact details.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <h3>Let’s create something</h3>
+            <p class="muted">Send a message with your date, location, and references.</p>
+
+            <div class="contact-list">
+              <div class="contact-row">
+                <span class="contact-label">Email</span>
+                <a class="contact-value" href="mailto:evolutionpw3@gmail.com">evolutionpw3@gmail.com</a>
+              </div>
+              <div class="contact-row">
+                <span class="contact-label">Phone</span>
+                <a class="contact-value" href="tel:+10000000000">+2348099800075</a>
+              </div>
+              <div class="contact-row">
+                <span class="contact-label">Location</span>
+                <span class="contact-value">127 Victoria street,Ojota,Lagos State</span>
+              </div>
+            </div>
+
+            <div class="contact-actions">
+              <a class="btn btn-primary" href="mailto:evolutionpw3@gmail.com">Email me</a>
+              <a class="btn" href="#work">See work</a>
+            </div>
+          </div>
+
+          <div class="social-card">
+            <h3>Social</h3>
+           
+
+            <div class="social-grid" role="list">
+              <a class="social" role="listitem" href="https://facebook.com/evolutionpw3" target="_blank" rel="noopener">
+                <svg class="social-icon" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none">
+                  <path
+                    d="M13.5 10H16l.5-3H13.5V5c0-.7.2-1.2 1.3-1.2H16.5V1.1C16.2 1.1 15.3 1 14.2 1 12 1 10.5 2.3 10.5 5v2H8l.5 3h2V23h3V10Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span class="social-handle">/evolution pw</span>
+              </a>
+              <a class="social" role="listitem" href="https://instagram.com/gerard_evolution" target="_blank" rel="noopener">
+                <svg class="social-icon" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none">
+                  <path
+                    d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path d="M17.8 6.2h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+                </svg>
+                <span class="social-handle">@gerard_evolution</span>
+              </a>
+              <a class="social" role="listitem" href="https://wa.me/2348099800075" target="_blank" rel="noopener">
+                <svg class="social-icon" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none">
+                  <path
+                    d="M20 11.5a8.5 8.5 0 0 1-12.9 7.3L4 19l.9-3.1A8.5 8.5 0 1 1 20 11.5Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M9.2 8.8c.2-.4.4-.4.6-.4h.5c.2 0 .4.1.5.4l.6 1.4c.1.3.1.5 0 .7l-.2.3c-.1.2-.2.3 0 .6.2.4.7 1.1 1.4 1.6.5.4.9.6 1.2.7.2.1.4.1.5-.1l.4-.5c.1-.2.3-.2.5-.1l1.5.7c.3.1.4.3.4.5 0 .5-.2 1-.6 1.3-.4.3-.9.4-1.4.3-.7-.1-2.1-.7-3.4-1.9-1.3-1.2-2-2.7-2.1-3.4-.1-.5 0-1 .3-1.3Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span class="social-handle">+2348099800075</span>
+              </a>
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span class="muted">© <span id="year"></span> Mirage Visuals. All rights reserved.</span>
+        <a class="footer-link" href="#main">Back to top</a>
+      </div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
