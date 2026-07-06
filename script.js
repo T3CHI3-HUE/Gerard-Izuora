@@ -4,29 +4,27 @@ const DEFAULT_THUMB = "./images/image0 (3).jpeg";
 
 const work = [
 
-  { title: "Legacy Sport", description: "LaLiga Street Banter.", tags: ["highlight"], videoSrc: "./images/1b22230c-e364-4375-80cb-44ea85830ff7.MP4", thumbSrc: DEFAULT_THUMB },
-
-  { title: "Flour Mills of Nigeria", description: "Business Day.", tags: ["Video"], videoSrc: "./images/4a820522-2acc-449f-8df5-0668f232a272.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Photo Shoot", description: "Behind the Scenes.", tags: ["Video"], videoSrc: "./images/5ca81997-3f0c-4b23-b039-401b517bc2dd.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Flour Mills of Nigeria", description: "64th General Meeting.", tags: ["Video"], videoSrc: "./images/5cb376f3-dc22-4fe8-838a-467570dc901b.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "WAKA ", description: "Work out and Exercise.", tags: ["Video"], videoSrc: "./images/5f7cd1d0-ae59-4f47-8c25-7a28c289a84e.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Flour Mills of Nigeria", description: "Exhibition.", tags: ["Video"], videoSrc: "./images/19eddf7a-1a5d-4f13-af25-fc04409f3381.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Eki Silk", description: "Fashion.", tags: ["Video"], videoSrc: "./images/65ee5e13-9519-4c66-981c-258bd6e9788a.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Legacy Sport", description: "LaLiga.", tags: ["Video"], videoSrc: "./images/137a106d-1b3d-4d94-9644-c9f6e9a03ba6.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Legacy Sport", description: "LaLiga.", tags: ["Video"], videoSrc: "./images/869a8cf0-dd42-417c-891a-532e8aec7cd4.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Social events", description: "Wedding Proposal.", tags: ["Video"], videoSrc: "./images/2887bb6e-8106-49bb-b2e3-f13545a1a9f5.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Indomie", description: "The fan club.", tags: ["Video"], videoSrc: "./images/74752402-1674-4487-8f75-80e462a18c01.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Legacy Sport", description: "LaLiga.", tags: ["Video"], videoSrc: "./images/b886fc70-e13f-4d6f-9a77-54bbc3b1a487.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Eki Silk", description: "GTCO fashion week.", tags: ["Video"], videoSrc: "./images/df8379d7-de4e-45e7-b0d0-0da3d584996e.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Eki Silk", description: "Fashion.", tags: ["Video"], videoSrc: "./images/e355aeb5-b2b2-422e-b4ef-f0709a06f082.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "WAKA", description: "Work out and Exercise.", tags: ["Video"], videoSrc: "./images/ecb54973-6d0d-4bce-b512-ec496be94ba1.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Closer Pictures", description: "Creative Economy Practice.", tags: ["Video"], videoSrc: "./images/f6ee242e-5c82-455e-bd9f-93f4693a048d.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Legacy Sport", description: "LaLiga Street Banter.", tags: ["reels"], videoSrc: "./images/1b22230c-e364-4375-80cb-44ea85830ff7.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Flour Mills of Nigeria", description: "Business Day.", tags: ["corporate"], videoSrc: "./images/4a820522-2acc-449f-8df5-0668f232a272.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Photo Shoot", description: "Behind the Scenes.", tags: ["behind"], videoSrc: "./images/5ca81997-3f0c-4b23-b039-401b517bc2dd.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Flour Mills of Nigeria", description: "64th General Meeting.", tags: ["corporate"], videoSrc: "./images/5cb376f3-dc22-4fe8-838a-467570dc901b.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "WAKA ", description: "Work out and Exercise.", tags: ["reels"], videoSrc: "./images/5f7cd1d0-ae59-4f47-8c25-7a28c289a84e.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Flour Mills of Nigeria", description: "Exhibition.", tags: ["reels"], videoSrc: "./images/19eddf7a-1a5d-4f13-af25-fc04409f3381.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Eki Silk", description: "Fashion.", tags: ["behind"], videoSrc: "./images/65ee5e13-9519-4c66-981c-258bd6e9788a.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Legacy Sport", description: "LaLiga.", tags: ["reels"], videoSrc: "./images/137a106d-1b3d-4d94-9644-c9f6e9a03ba6.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Legacy Sport", description: "LaLiga.", tags: ["reels"], videoSrc: "./images/869a8cf0-dd42-417c-891a-532e8aec7cd4.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Social events", description: "Wedding Proposal.", tags: ["highlight"], videoSrc: "./images/2887bb6e-8106-49bb-b2e3-f13545a1a9f5.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Indomie", description: "The fan club.", tags: ["highlight"], videoSrc: "./images/74752402-1674-4487-8f75-80e462a18c01.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Legacy Sport", description: "LaLiga.", tags: ["reels"], videoSrc: "./images/b886fc70-e13f-4d6f-9a77-54bbc3b1a487.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Eki Silk", description: "GTCO fashion week.", tags: ["reels"], videoSrc: "./images/df8379d7-de4e-45e7-b0d0-0da3d584996e.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Eki Silk", description: "Fashion.", tags: ["behind"], videoSrc: "./images/e355aeb5-b2b2-422e-b4ef-f0709a06f082.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "WAKA", description: "Work out and Exercise.", tags: ["reels"], videoSrc: "./images/ecb54973-6d0d-4bce-b512-ec496be94ba1.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Closer Pictures", description: "Creative Economy Practice.", tags: ["highlight"], videoSrc: "./images/f6ee242e-5c82-455e-bd9f-93f4693a048d.MP4", thumbSrc: DEFAULT_THUMB },
   { title: "Social Event", description: "Social Event.", tags: ["Video"], videoSrc: "./images/f78f538f-c254-4d60-b28d-ea945a64d5b6.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Masha Music Academy", description: "2025 Recital.", tags: ["Video"], videoSrc: "./images/faa815e3-5a9b-47cf-8cd0-dfac14e297de.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "BRAS MARINE", description: "Promotional videoimages/61e764a8-241d-43b1-baad-b1df0eec2d22.MP4.", tags: ["Video"], videoSrc: "./images/61e764a8-241d-43b1-baad-b1df0eec2d22.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Flour Mills of Nigeria", description: "Golden Penny.", tags: ["highlight"], videoSrc: "./images/eb420ce5-ffe3-4f8f-9719-a55d350f85a2.MP4", thumbSrc: DEFAULT_THUMB },
-  { title: "Fiducia", description: "Fiducia", tags: ["highlight"], videoSrc: "./images/93e5a091-0843-42cd-831f-13b4cb97529e.MP4", thumbSrc: DEFAULT_THUMB },
-
+  { title: "Masha Music Academy", description: "2025 Recital.", tags: ["highlight"], videoSrc: "./images/faa815e3-5a9b-47cf-8cd0-dfac14e297de.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "BRAS MARINE", description: "Promotional video", tags: ["reels"], videoSrc: "./images/61e764a8-241d-43b1-baad-b1df0eec2d22.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Flour Mills of Nigeria", description: "Golden Penny.", tags: ["corporate"], videoSrc: "./images/eb420ce5-ffe3-4f8f-9719-a55d350f85a2.MP4", thumbSrc: DEFAULT_THUMB },
+  { title: "Fiducia", description: "Fiducia", tags: ["corporate"], videoSrc: "./images/93e5a091-0843-42cd-831f-13b4cb97529e.MP4", thumbSrc: DEFAULT_THUMB },
   { title: "Legacy Sport", description: "LaLiga", tags: ["Video"], videoSrc: "./images/0c22f32d-c9ab-4654-9428-d8108ce79756.MP4", thumbSrc: DEFAULT_THUMB }
 ];
 
@@ -66,7 +64,6 @@ function matchesFilter(item) {
   const tags = Array.isArray(item.tags) ? item.tags.map((t) => String(t).toLowerCase()) : [];
 
   if (activeFilter === "behind") return tags.includes("behind");
-  if (activeFilter === "cinematic") return tags.includes("cinematic");
   if (activeFilter === "reels") return tags.includes("reels");
   if (activeFilter === "highlight") return tags.includes("highlight");
   if (activeFilter === "corporate") return tags.includes("corporate");
