@@ -231,6 +231,15 @@ async function openModalWithVideo(item) {
   modal.hidden = false;
   modal.setAttribute("aria-hidden", "false");
 
+  // GSAP: animate modal in
+  if (typeof gsap !== "undefined") {
+    gsap.fromTo(modal, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" });
+    const inner = modal.querySelector(".video-modal-inner");
+    if (inner) {
+      gsap.fromTo(inner, { scale: 0.96, y: 10, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 0.35, ease: "power3.out" });
+    }
+  }
+
   modalVideo.pause();
 
   // Replace sources
@@ -255,8 +264,24 @@ async function openModalWithVideo(item) {
 function closeModal() {
   if (!modal || !modalVideo) return;
 
-  modal.setAttribute("aria-hidden", "true");
-  modal.hidden = true;
+  // GSAP: animate modal out
+  if (typeof gsap !== "undefined") {
+    const inner = modal.querySelector(".video-modal-inner");
+    gsap.to(modal, {
+      opacity: 0,
+      duration: 0.18,
+      ease: "power2.in",
+      onComplete: () => {
+        modal.setAttribute("aria-hidden", "true");
+        modal.hidden = true;
+        modal.style.opacity = "";
+        if (inner) { inner.style.transform = ""; inner.style.opacity = ""; }
+      },
+    });
+  } else {
+    modal.setAttribute("aria-hidden", "true");
+    modal.hidden = true;
+  }
 
   modalVideo.pause();
   modalVideo.querySelectorAll("source").forEach((s) => s.remove());
@@ -342,6 +367,362 @@ if (filterBar) {
 
 renderCards();
 syncViewMoreButtons();
+
+
+/* ================================================
+   GSAP Motion Graphics — Animations
+   ================================================ */
+
+(function initGSAPAnimations() {
+  // Check if GSAP loaded; bail if not
+  if (typeof gsap === "undefined") return;
+
+  // Register ScrollTrigger plugin
+  if (typeof ScrollTrigger !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  const hasScrollTrigger = typeof ScrollTrigger !== "undefined";
+  const mm = gsap.matchMedia();
+
+  /* =========================================================
+     Shared helper: enhanced filter handler (used across
+     all breakpoints so filtering always animates).
+     ========================================================= */
+  function setupEnhancedFilter() {
+    const originalFilterBar = document.querySelector(".filter-bar");
+    if (!originalFilterBar) return;
+
+    const enhancedFilterHandler = (e) => {
+      const btn = e.target.closest("button[data-filter]");
+      if (!btn) return;
+
+      const newFilter = btn.dataset.filter || "all";
+      if (newFilter === activeFilter) return;
+
+      // Update active state on buttons
+      e.currentTarget.querySelectorAll(".filter-btn").forEach((b) => {
+        b.classList.toggle("is-active", b === btn);
+      });
+
+      const grid = document.getElementById("workGrid");
+      const cards = grid ? grid.querySelectorAll(".work-card") : [];
+
+      if (cards.length > 0) {
+        gsap.to(cards, {
+          scale: 0.9,
+          opacity: 0,
+          y: 20,
+          duration: 0.2,
+          stagger: 0.03,
+          ease: "power2.in",
+          onComplete: () => {
+            activeFilter = newFilter;
+            visibleCount = INITIAL_VISIBLE_COUNT;
+            renderCards();
+            syncViewMoreButtons();
+          },
+        });
+      } else {
+        activeFilter = newFilter;
+        visibleCount = INITIAL_VISIBLE_COUNT;
+        renderCards();
+        syncViewMoreButtons();
+      }
+    };
+
+    // Remove existing listeners via clone-and-replace
+    const newFilterBar = originalFilterBar.cloneNode(true);
+    originalFilterBar.parentNode.replaceChild(newFilterBar, originalFilterBar);
+    newFilterBar.addEventListener("click", enhancedFilterHandler);
+  }
+
+  /* =========================================================
+     Shared helper: work‑grid MutationObserver (drives the
+     card stagger whenever cards are re‑rendered).
+     ========================================================= */
+  function setupWorkGridObserver() {
+    const workGridEl = document.querySelector('[data-gsap="work-grid"]');
+    if (!workGridEl || !hasScrollTrigger) return;
+
+    function staggerCards(cards) {
+      if (cards.length === 0) return;
+      gsap.set(cards, { clearProps: "all" });
+      gsap.from(cards, {
+        scrollTrigger: {
+          trigger: workGridEl,
+          start: "top 88%",
+          toggleActions: "play none none none",
+          invalidateOnRefresh: true,
+        },
+        y: 40,
+        scale: 0.95,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: "power2.out",
+      });
+    }
+
+    // Observe future re‑renders
+    const obs = new MutationObserver(() => {
+      staggerCards(workGridEl.querySelectorAll(".work-card"));
+    });
+    obs.observe(workGridEl, { childList: true, subtree: false });
+
+    // Initial cards
+    staggerCards(workGridEl.querySelectorAll(".work-card"));
+  }
+
+  // -----------------------------------------------------------
+  //  A) DESKTOP  –  (width ≥ 981px)   full animations
+  // -----------------------------------------------------------
+  mm.add("(prefers-reduced-motion: no-preference) and (min-width: 981px)", () => {
+
+    /* ---- page-load master timeline ---- */
+    const masterTL = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    masterTL.from(".site-header", {
+      y: -60, opacity: 0, duration: 0.6, ease: "power2.out",
+      clearProps: "opacity,transform",
+    });
+    masterTL.from('[data-gsap="hero-title"]',  { y: 40, opacity: 0, duration: 0.7 },                "-=0.2");
+    masterTL.from('[data-gsap="hero-lead"]',   { y: 30, opacity: 0, duration: 0.6 },                "-=0.35");
+    masterTL.from('[data-gsap="hero-pill"]',   { y: 20, opacity: 0, duration: 0.4 },                "-=0.25");
+    masterTL.from('[data-gsap="hero-actions"] > .btn',
+      { y: 20, opacity: 0, duration: 0.4, stagger: 0.1 },                                          "-=0.2");
+    masterTL.from('[data-gsap="meta-item"]',
+      { y: 15, opacity: 0, duration: 0.35, stagger: 0.08 },                                        "-=0.15");
+    masterTL.from('[data-gsap="hero-media"]',
+      { scale: 0.92, opacity: 0, duration: 0.8, ease: "power2.out" },                              "-=0.5");
+
+    /* ---- section headings ---- */
+    if (hasScrollTrigger) {
+      gsap.utils.toArray('[data-gsap="section-head"]').forEach((el) => {
+        gsap.from(el, {
+          scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" },
+          y: 30, opacity: 0, duration: 0.55, ease: "power2.out",
+        });
+      });
+    }
+
+    /* ---- work grid cards ---- */
+    setupWorkGridObserver();
+
+    /* ---- work actions ---- */
+    if (hasScrollTrigger) {
+      gsap.from('[data-gsap="work-actions"]', {
+        scrollTrigger: { trigger: '[data-gsap="work-actions"]', start: "top 90%", toggleActions: "play none none reverse" },
+        y: 20, opacity: 0, duration: 0.4, ease: "power2.out",
+      });
+    }
+
+    /* ---- contact cards (slide from opposite sides) ---- */
+    if (hasScrollTrigger) {
+      const contactCard = document.querySelector('[data-gsap="contact-card"]');
+      const socialCard  = document.querySelector('[data-gsap="social-card"]');
+      if (contactCard) {
+        gsap.from(contactCard, {
+          scrollTrigger: { trigger: contactCard, start: "top 85%", toggleActions: "play none none reverse" },
+          x: -40, opacity: 0, duration: 0.55, ease: "power2.out",
+        });
+      }
+      if (socialCard) {
+        gsap.from(socialCard, {
+          scrollTrigger: { trigger: socialCard, start: "top 85%", toggleActions: "play none none reverse" },
+          x: 40, opacity: 0, duration: 0.55, ease: "power2.out",
+        });
+      }
+    }
+
+    /* ---- footer ---- */
+    if (hasScrollTrigger) {
+      gsap.from('[data-gsap="footer"]', {
+        scrollTrigger: { trigger: '[data-gsap="footer"]', start: "top 92%", toggleActions: "play none none reverse" },
+        y: 15, opacity: 0, duration: 0.4, ease: "power2.out",
+      });
+    }
+
+    /* ---- parallax ---- */
+    if (hasScrollTrigger) {
+      const heroMedia = document.querySelector('[data-gsap="hero-media"]');
+      if (heroMedia) {
+        gsap.fromTo(heroMedia,
+          { yPercent: 0 },
+          { yPercent: 8, ease: "none",
+            scrollTrigger: { trigger: heroMedia, start: "top bottom", end: "bottom top", scrub: 1.2 },
+          },
+        );
+      }
+    }
+
+    /* ---- filter transition ---- */
+    setupEnhancedFilter();
+
+    return () => {
+      if (hasScrollTrigger) ScrollTrigger.getAll().forEach((st) => st.kill());
+    };
+  });
+
+  // -----------------------------------------------------------
+  //  B) TABLET  –  (641px – 980px)   moderate animations
+  // -----------------------------------------------------------
+  mm.add("(prefers-reduced-motion: no-preference) and (min-width: 641px) and (max-width: 980px)", () => {
+
+    const masterTL = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    masterTL.from(".site-header", {
+      y: -50, opacity: 0, duration: 0.5, ease: "power2.out",
+      clearProps: "opacity,transform",
+    });
+    masterTL.from('[data-gsap="hero-title"]',  { y: 30, opacity: 0, duration: 0.6 },                "-=0.1");
+    masterTL.from('[data-gsap="hero-lead"]',   { y: 20, opacity: 0, duration: 0.5 },                "-=0.3");
+    masterTL.from('[data-gsap="hero-actions"] > .btn',
+      { y: 15, opacity: 0, duration: 0.35, stagger: 0.08 },                                        "-=0.15");
+    masterTL.from('[data-gsap="meta-item"]',
+      { y: 10, opacity: 0, duration: 0.3, stagger: 0.06 },                                         "-=0.1");
+    masterTL.from('[data-gsap="hero-media"]',
+      { scale: 0.95, opacity: 0, duration: 0.6, ease: "power2.out" },                              "-=0.3");
+
+    /* ---- section headings ---- */
+    if (hasScrollTrigger) {
+      gsap.utils.toArray('[data-gsap="section-head"]').forEach((el) => {
+        gsap.from(el, {
+          scrollTrigger: { trigger: el, start: "top 87%", toggleActions: "play none none reverse" },
+          y: 20, opacity: 0, duration: 0.45, ease: "power2.out",
+        });
+      });
+    }
+
+    /* ---- work grid cards ---- */
+    setupWorkGridObserver();
+
+    /* ---- work actions ---- */
+    if (hasScrollTrigger) {
+      gsap.from('[data-gsap="work-actions"]', {
+        scrollTrigger: { trigger: '[data-gsap="work-actions"]', start: "top 90%", toggleActions: "play none none reverse" },
+        y: 15, opacity: 0, duration: 0.35, ease: "power2.out",
+      });
+    }
+
+    /* ---- contact cards (shorter horizontal slide) ---- */
+    if (hasScrollTrigger) {
+      const contactCard = document.querySelector('[data-gsap="contact-card"]');
+      const socialCard  = document.querySelector('[data-gsap="social-card"]');
+      if (contactCard) {
+        gsap.from(contactCard, {
+          scrollTrigger: { trigger: contactCard, start: "top 87%", toggleActions: "play none none reverse" },
+          x: -20, opacity: 0, duration: 0.45, ease: "power2.out",
+        });
+      }
+      if (socialCard) {
+        gsap.from(socialCard, {
+          scrollTrigger: { trigger: socialCard, start: "top 87%", toggleActions: "play none none reverse" },
+          x: 20, opacity: 0, duration: 0.45, ease: "power2.out",
+        });
+      }
+    }
+
+    /* ---- footer ---- */
+    if (hasScrollTrigger) {
+      gsap.from('[data-gsap="footer"]', {
+        scrollTrigger: { trigger: '[data-gsap="footer"]', start: "top 92%", toggleActions: "play none none reverse" },
+        y: 12, opacity: 0, duration: 0.35, ease: "power2.out",
+      });
+    }
+
+    /* ---- filter transition ---- */
+    setupEnhancedFilter();
+
+    return () => {
+      if (hasScrollTrigger) ScrollTrigger.getAll().forEach((st) => st.kill());
+    };
+  });
+
+  // -----------------------------------------------------------
+  //  C) MOBILE  –  (< 641px)   lighter animations, no X slides
+  // -----------------------------------------------------------
+  mm.add("(prefers-reduced-motion: no-preference) and (max-width: 640px)", () => {
+
+    const masterTL = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    masterTL.from(".site-header", {
+      y: -40, opacity: 0, duration: 0.4, ease: "power2.out",
+      clearProps: "opacity,transform",
+    });
+    masterTL.from('[data-gsap="hero-title"]',  { y: 25, opacity: 0, duration: 0.5 },                "-=0.1");
+    masterTL.from('[data-gsap="hero-lead"]',   { y: 18, opacity: 0, duration: 0.4 },                "-=0.25");
+    masterTL.from('[data-gsap="hero-actions"] > .btn',
+      { y: 12, opacity: 0, duration: 0.3, stagger: 0.06 },                                         "-=0.1");
+    masterTL.from('[data-gsap="meta-item"]',
+      { y: 8, opacity: 0, duration: 0.25, stagger: 0.05 },                                         "-=0.05");
+    masterTL.from('[data-gsap="hero-media"]',
+      { scale: 0.97, opacity: 0, duration: 0.5, ease: "power2.out" },                              "-=0.2");
+
+    /* ---- section headings ---- */
+    if (hasScrollTrigger) {
+      gsap.utils.toArray('[data-gsap="section-head"]').forEach((el) => {
+        gsap.from(el, {
+          scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none reverse" },
+          y: 15, opacity: 0, duration: 0.35, ease: "power2.out",
+        });
+      });
+    }
+
+    /* ---- work grid cards ---- */
+    setupWorkGridObserver();
+
+    /* ---- work actions ---- */
+    if (hasScrollTrigger) {
+      gsap.from('[data-gsap="work-actions"]', {
+        scrollTrigger: { trigger: '[data-gsap="work-actions"]', start: "top 92%", toggleActions: "play none none reverse" },
+        y: 12, opacity: 0, duration: 0.3, ease: "power2.out",
+      });
+    }
+
+    /* ---- contact cards (just fade, no X slide) ---- */
+    if (hasScrollTrigger) {
+      [document.querySelector('[data-gsap="contact-card"]'),
+       document.querySelector('[data-gsap="social-card"]')].forEach((el) => {
+        if (el) {
+          gsap.from(el, {
+            scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none reverse" },
+            y: 15, opacity: 0, duration: 0.35, ease: "power2.out",
+          });
+        }
+      });
+    }
+
+    /* ---- footer ---- */
+    if (hasScrollTrigger) {
+      gsap.from('[data-gsap="footer"]', {
+        scrollTrigger: { trigger: '[data-gsap="footer"]', start: "top 94%", toggleActions: "play none none reverse" },
+        y: 10, opacity: 0, duration: 0.3, ease: "power2.out",
+      });
+    }
+
+    /* ---- filter transition ---- */
+    setupEnhancedFilter();
+
+    return () => {
+      if (hasScrollTrigger) ScrollTrigger.getAll().forEach((st) => st.kill());
+    };
+  });
+
+  // -----------------------------------------------------------
+  //  D) REDUCED MOTION –  override all animation states
+  // -----------------------------------------------------------
+  mm.add("(prefers-reduced-motion: reduce)", () => {
+    document.querySelectorAll("[data-gsap]").forEach((el) => {
+      el.style.opacity = "1";
+      el.style.visibility = "visible";
+      el.style.transform = "none";
+    });
+  });
+})();
+
+
+
 
 
 

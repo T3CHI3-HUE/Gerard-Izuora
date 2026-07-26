@@ -16,7 +16,6 @@
           <div>
             <div class="brand-name">Gerard Izuora</div>
             <div class="brand-tagline">Videographer • Editor • Storyteller</div>
-          </div>
         </div>
 
         <nav class="nav" aria-label="Primary">
@@ -27,7 +26,6 @@
         <div class="header-cta">
           <a class="btn" href="#contact">Book a shoot</a>
         </div>
-      </div>
     </header>
 
     <main id="main" class="container">
@@ -88,7 +86,6 @@
             <button class="filter-btn" type="button" data-filter="corporate">Coporate</button>
             <button class="filter-btn" type="button" data-filter="behind">Behind the scenes</button>
           </div>
-        </div>
 
         <div class="work-grid" id="workGrid" data-gsap="work-grid"></div>
 
@@ -102,7 +99,6 @@
           <div class="video-modal-inner">
             <video id="modalVideo" class="video" controls preload="metadata" playsinline></video>
           </div>
-        </div>
 
         <template id="workCardTemplate">
           <article class="work-card" tabindex="0" aria-label="Project">
@@ -121,7 +117,6 @@
               </div>
           </article>
         </template>
-      </div>
       </section>
 
       <section id="contact" class="section contact" aria-labelledby="contact-title">
@@ -148,12 +143,12 @@
                 <span class="contact-label">Location</span>
                 <span class="contact-value">127 Victoria street,Ojota,Lagos State</span>
               </div>
-            </div>
+
             <div class="contact-actions">
               <a class="btn btn-primary" href="mailto:evolutionpw3@gmail.com">Email me</a>
               <a class="btn" href="#work">See work</a>
             </div>
-          </div>
+
           <div class="social-card" data-gsap="social-card">
             <h3>Social</h3>
 
@@ -179,9 +174,7 @@
                 </svg>
                 <span class="social-handle">+2348099800075</span>
               </a>
-          
             </div>
-          </div>
         </div>
       </section>
     </main>
